@@ -12,9 +12,11 @@ export const section1State = atom<ISection>({
   key: "section1",
   default: {
     type: "sticky",
-    heightNum: 6,
+    heightNum: 8,
     scrollHeight: 0,
-    objs: {},
+    objs: {
+      videoImages: [],
+    },
     values: {},
   },
 });
@@ -47,4 +49,14 @@ export const section4State = atom<ISection>({
     objs: {},
     values: {},
   },
+});
+
+export const windowWidthState = atom<number>({
+  key: "windowWidth",
+  default: window.innerWidth,
+});
+
+export const windowHeightState = atom<number>({
+  key: "windowHeight",
+  default: window.innerHeight,
 });

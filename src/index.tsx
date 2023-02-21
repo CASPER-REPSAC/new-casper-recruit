@@ -40,6 +40,7 @@ body {
 	line-height: 1;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
+  color:white;
 }
 ol, ul {
 	list-style: none;

@@ -1,6 +1,6 @@
 import { useScroll } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
   ISection,
@@ -8,6 +8,8 @@ import {
   section2State,
   section3State,
   section4State,
+  windowHeightState,
+  windowWidthState,
 } from "./atom";
 import Header from "./components/Header";
 import Section1 from "./components/sections/Section1";
@@ -19,7 +21,8 @@ const Wrapper = styled.div``;
 
 function App() {
   console.log("APP rendering");
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [windowHeight, setWindowHeight] = useRecoilState(windowHeightState);
+  const setWindowWidth = useSetRecoilState(windowWidthState);
   const setSection1 = useSetRecoilState<ISection>(section1State);
   const setSection2 = useSetRecoilState<ISection>(section2State);
   const setSection3 = useSetRecoilState<ISection>(section3State);
@@ -54,6 +57,7 @@ function App() {
   useEffect(() => {
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
+      setWindowWidth(window.innerWidth);
     };
     window.addEventListener("resize", handleResize);
     return () => {
