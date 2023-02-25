@@ -1,34 +1,54 @@
-import {
-  motion,
-  motionValue,
-  transform,
-  useMotionValue,
-  useMotionValueEvent,
-  useTransform,
-  Variants,
-} from "framer-motion";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { motion, useTransform } from "framer-motion";
+import { useRecoilValue } from "recoil";
 import { section1State, windowHeightState, windowWidthState } from "../../atom";
-import { ISectionProps, ISticky } from "./interfaces";
+import { ISectionProps } from "./interfaces";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import { CasperWhite } from "../CasperBlack";
+import { CasperWhite } from "../Casper";
+
+const Sticky = styled(motion.div)`
+  position: sticky;
+  top: 0;
+`;
 
 const Wrapper = styled.div`
-  padding-top: 30vh;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
+`;
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`;
+const StickyDiv = styled(Sticky)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 `;
 
-const H2 = styled(motion.div)<ISticky>`
-  position: fixed;
-  opacity: 0;
-  top: 50%;
-  transform: translate3d(0, -50%, 0);
-  font-size: 4rem;
+const Message = styled(motion.div)`
+  position: absolute;
+  font-size: 6rem;
   font-weight: bold;
+  text-align: center;
+`;
+
+const H1 = styled.h1`
+  font-size: 6rem;
+  font-weight: bold;
+  text-align: center;
+`;
+const H2 = styled.h2`
+  font-size: 4.5rem;
+  font-weight: 400;
+  text-align: center;
 `;
 
 const Canvas = styled(motion.canvas)``;
@@ -45,48 +65,55 @@ const CavasWrapper = styled.div`
 `;
 
 function Section1({ scrollY }: ISectionProps) {
+  console.log("section1 render");
+
   const windowWidth = useRecoilValue(windowWidthState);
   const windowHeight = useRecoilValue(windowHeightState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const context = canvasRef.current?.getContext("2d");
   const [canvasRatio, setCanvasRatio] = useState(1);
-  const [info, setInfo] = useRecoilState(section1State);
-  const scrollRatio = useTransform(
-    scrollY,
-    [66, info.scrollHeight + 66],
-    [0, 1]
-  );
-
+  const info = useRecoilValue(section1State);
+  const scrollRatio = useTransform(scrollY, [0, info.scrollHeight], [0, 1]);
   // animation values
   const opacity1 = useTransform(
     scrollRatio,
-    [0.1, 0.2, 0.25, 0.3],
+    [0.3, 0.37, 0.41, 0.45],
     [0, 1, 1, 0]
   );
   const opacity2 = useTransform(
     scrollRatio,
-    [0.3, 0.4, 0.45, 0.5],
+    [0.45, 0.52, 0.56, 0.6],
     [0, 1, 1, 0]
   );
   const opacity3 = useTransform(
     scrollRatio,
-    [0.5, 0.6, 0.65, 0.7],
+    [0.6, 0.67, 0.71, 0.75],
+    [0, 1, 1, 0]
+  );
+  const opacity4 = useTransform(
+    scrollRatio,
+    [0.75, 0.82, 0.86, 0.9],
     [0, 1, 1, 0]
   );
   const y1 = useTransform(
     scrollRatio,
-    [0.1, 0.2, 0.25, 0.3],
-    [100, 0, 0, -100]
+    [0.3, 0.37, 0.41, 0.45],
+    [20, 0, 0, -20]
   );
   const y2 = useTransform(
     scrollRatio,
-    [0.3, 0.4, 0.45, 0.5],
-    [100, 0, 0, -100]
+    [0.45, 0.52, 0.56, 0.6],
+    [20, 0, 0, -20]
   );
   const y3 = useTransform(
     scrollRatio,
-    [0.5, 0.6, 0.65, 0.7],
-    [100, 0, 0, -100]
+    [0.6, 0.67, 0.71, 0.75],
+    [20, 0, 0, -20]
+  );
+  const y4 = useTransform(
+    scrollRatio,
+    [0.75, 0.82, 0.86, 0.9],
+    [20, 0, 0, -20]
   );
   const imgIdx = useTransform(scrollRatio, [0, 1], [0, 906]);
 
@@ -94,10 +121,11 @@ function Section1({ scrollY }: ISectionProps) {
   const videoImages: Array<HTMLImageElement> = [];
   for (let i = 0; i < 907; i++) {
     const img = new Image();
-    img.src = `hacking-images/img-${i + 1}.jpg`;
+    img.src = `images/hacking-images/img-${i + 1}.jpg`;
     videoImages.push(img);
   }
-  // scale canvas
+
+  // Set canvas scale
   useEffect(() => {
     if (canvasRef.current) {
       const widthRatio = windowWidth / canvasRef.current?.width;
@@ -108,11 +136,7 @@ function Section1({ scrollY }: ISectionProps) {
   }, [windowHeight, windowWidth]);
 
   // Draw images
-  console.log("전", imgIdx.get());
-  console.log("draw");
   context?.drawImage(videoImages[Math.round(imgIdx.get())], 0, 0);
-  console.log("후", imgIdx.get());
-
   imgIdx.on("change", (idx) => {
     context?.drawImage(videoImages[Math.round(idx)], 0, 0);
   });
@@ -120,17 +144,30 @@ function Section1({ scrollY }: ISectionProps) {
 
   return (
     <Wrapper style={{ height: info.scrollHeight }}>
-      <CasperWhite />
-      <H2 sticky="true" style={{ opacity: opacity1, y: y1 }}>
-        Hacking
-      </H2>
-      <H2 sticky="true" style={{ opacity: opacity2, y: y2 }}>
-        {" "}
-        Programming
-      </H2>
-      <H2 sticky="true" style={{ opacity: opacity3, y: y3 }}>
-        Secruity
-      </H2>
+      <Div>
+        <CasperWhite />
+      </Div>
+      <Div>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/rkmVWnijyA8"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{ zIndex: 3 }}
+        ></iframe>
+      </Div>
+      <StickyDiv>
+        <Message style={{ opacity: opacity1, y: y1 }}>Hacking</Message>
+        <Message style={{ opacity: opacity2, y: y2 }}>Programming</Message>
+        <Message style={{ opacity: opacity3, y: y3 }}>Security</Message>
+        <Message style={{ opacity: opacity4, y: y4 }}>
+          <H2>창원대학교</H2>
+          <H1>정보 보안 동아리</H1>
+        </Message>
+      </StickyDiv>
+
       <CavasWrapper>
         <Canvas
           style={{ scale: canvasRatio, opacity: videoOpacity }}

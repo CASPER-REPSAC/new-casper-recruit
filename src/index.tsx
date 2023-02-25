@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import App from "./App";
 
 const root = ReactDOM.createRoot(
@@ -40,7 +40,7 @@ body {
 	line-height: 1;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
-  color:white;
+  color:black;
 }
 ol, ul {
 	list-style: none;
@@ -63,9 +63,9 @@ root.render(
   <>
     <RecoilRoot>
       <GlobalStyle />
-      {/* <React.StrictMode> */}
-      <App />
-      {/* </React.StrictMode> */}
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </RecoilRoot>
   </>
 );

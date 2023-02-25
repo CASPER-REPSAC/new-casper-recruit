@@ -1,24 +1,49 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const Nav = styled.nav`
+const Nav = styled.div`
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 55px;
+  z-index: 10;
+  background-color: rgb(22, 22, 22);
+`;
+const Items = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 100px;
-  padding-left: 100px;
-  height: 66px;
+  width: 100%;
+  max-width: 1000px;
+  font-size: 1rem;
 `;
-const A = styled.a`
+const A = styled(motion.a)`
+  color: white;
   text-decoration: none;
-  color: black;
-  font-size: 1.2em;
+  margin-left: 1em;
+  padding: 5px 15px 5px 15px;
+  border-radius: 100000px;
+  font-weight: lighter;
+`;
+const Logo = styled.img`
+  margin-right: auto;
 `;
 
 function Header() {
   return (
     <Nav>
-      <img src="casper_logo_black.png" width={200}></img>
-      <A href="/">Homepage</A>
+      <Items>
+        <Logo src="casper_logo_white.png" alt="logo" width={130}></Logo>
+        <A whileHover={{ backgroundColor: "#0066cc" }} href="/">
+          Homepage
+        </A>
+        <A whileHover={{ backgroundColor: "#0066cc" }} href="/">
+          지원 하기
+        </A>
+      </Items>
     </Nav>
   );
 }

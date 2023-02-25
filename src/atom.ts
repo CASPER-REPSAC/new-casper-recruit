@@ -4,8 +4,10 @@ export interface ISection {
   type: string;
   heightNum: number; // 브라우저 높이의 배수로 높이 세팅
   scrollHeight: number;
-  objs: {};
-  values: {};
+  objs: {
+    images?: string[];
+    videoImages?: string[];
+  };
 }
 
 export const section1State = atom<ISection>({
@@ -17,17 +19,15 @@ export const section1State = atom<ISection>({
     objs: {
       videoImages: [],
     },
-    values: {},
   },
 });
 export const section2State = atom<ISection>({
   key: "section2",
   default: {
-    type: "normal",
-    heightNum: 1,
+    type: "sticky",
+    heightNum: 5,
     scrollHeight: 0,
     objs: {},
-    values: {},
   },
 });
 export const section3State = atom<ISection>({
@@ -36,18 +36,25 @@ export const section3State = atom<ISection>({
     type: "sticky",
     heightNum: 5,
     scrollHeight: 0,
-    objs: {},
-    values: {},
+    objs: {
+      images: [
+        // 1920 x 1080(권장), 이상은 잘림
+        "images/blender-images/img1.jpg",
+        "images/blender-images/img2.jpg",
+        "images/blender-images/img3.jpg",
+        "images/blender-images/img4.jpg",
+      ],
+    },
   },
 });
+
 export const section4State = atom<ISection>({
   key: "section4",
   default: {
-    type: "sticky",
-    heightNum: 5,
+    type: "normal",
+    heightNum: 3,
     scrollHeight: 0,
     objs: {},
-    values: {},
   },
 });
 

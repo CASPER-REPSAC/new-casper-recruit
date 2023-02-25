@@ -35,8 +35,7 @@ const whiteLogoVars: Variants = {
 export function CasperBlack() {
   return (
     <svg
-      width="800"
-      height="327"
+      width="700"
       viewBox="0 0 1588 327"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +58,7 @@ export function CasperBlack() {
 export function CasperWhite() {
   return (
     <svg
-      width="800"
-      height="327"
+      width="700"
       viewBox="0 0 1588 327"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

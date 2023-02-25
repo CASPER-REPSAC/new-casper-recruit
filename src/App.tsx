@@ -1,5 +1,5 @@
 import { useScroll } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
@@ -11,6 +11,7 @@ import {
   windowHeightState,
   windowWidthState,
 } from "./atom";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Section1 from "./components/sections/Section1";
 import Section2 from "./components/sections/Section2";
@@ -63,17 +64,18 @@ function App() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  });
 
   return (
     <>
-      <Header />
       <Wrapper>
+        <Header />
         <Section1 scrollY={scrollY}></Section1>
         <Section2 scrollY={scrollY}></Section2>
         <Section3 scrollY={scrollY}></Section3>
-        <Section4 scrollY={scrollY}></Section4>
+        <Section4 />
       </Wrapper>
+      <Footer />
     </>
   );
 }
