@@ -35,7 +35,6 @@ const Rect = styled(motion.div)<{ position: string }>`
 `;
 
 function Section3({ scrollY }: ISectionProps) {
-  console.log("section3 render");
   const canvasWidth = 1920;
   const canvasHeight = 1080;
   const windowWidth = useRecoilValue(windowWidthState);

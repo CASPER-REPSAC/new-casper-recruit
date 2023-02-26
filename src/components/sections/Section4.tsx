@@ -16,7 +16,6 @@ const Div = styled.div`
   background-color: rgb(249, 249, 249);
   padding-top: 10vh;
   padding-bottom: 10vh;
-  min-width: 1000px;
 `;
 
 const Row = styled(motion.div)`
@@ -24,6 +23,13 @@ const Row = styled(motion.div)`
   width: 1000px;
   justify-content: space-between;
   margin-bottom: 1em;
+
+  @media screen and (max-width: 1024px) {
+    width: 300px;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
 `;
 const Item = styled(motion.div)`
   width: 200px;
@@ -62,13 +68,13 @@ const Circle = styled.div`
   border-radius: 50%;
 `;
 
-const Button = styled.a`
+const Button = styled(motion.a)`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #0066cc;
   font-size: 1.5rem;
-  background-color: #0066cc;
+  border: #0066cc 1px solid;
   padding: 0.5em 1em 0.5em 1em;
   border-radius: 1em;
   text-decoration: none;
@@ -233,7 +239,15 @@ function Section4() {
       </Div>
       <Div>
         <H1>JOIN US</H1>
-        <Button href="https://forms.gle/siW8demcHTMSbtL69">지원 하기</Button>
+        <Button
+          href="https://forms.gle/siW8demcHTMSbtL69"
+          whileHover={{
+            backgroundColor: "#0066cc",
+            color: "white",
+          }}
+        >
+          지원 하기
+        </Button>
         <JoinDesc>
           <div>기간: 23. 03. 13 까지</div>
           <div>

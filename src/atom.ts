@@ -25,7 +25,7 @@ export const section2State = atom<ISection>({
   key: "section2",
   default: {
     type: "sticky",
-    heightNum: 5,
+    heightNum: 7,
     scrollHeight: 0,
     objs: {},
   },

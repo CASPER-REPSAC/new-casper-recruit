@@ -25,8 +25,10 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
+  font-size: 16px;
+  @media screen and (max-width: 1024px){
+    font-size: 14px;
+  }
 	vertical-align: baseline;
   box-sizing: border-box;
 }
@@ -39,8 +41,8 @@ body {
   margin: 0;
 	line-height: 1;
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 14px;
   color:black;
+  overflow-x: hidden;
 }
 ol, ul {
 	list-style: none;
@@ -63,9 +65,9 @@ root.render(
   <>
     <RecoilRoot>
       <GlobalStyle />
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      {/* <React.StrictMode> */}
+      <App />
+      {/* </React.StrictMode> */}
     </RecoilRoot>
   </>
 );

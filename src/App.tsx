@@ -13,22 +13,25 @@ import {
 } from "./atom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Indicator from "./components/Indicator";
 import Section1 from "./components/sections/Section1";
 import Section2 from "./components/sections/Section2";
 import Section3 from "./components/sections/Section3";
 import Section4 from "./components/sections/Section4";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100vw;
+`;
 
 function App() {
-  console.log("APP rendering");
   const [windowHeight, setWindowHeight] = useRecoilState(windowHeightState);
   const setWindowWidth = useSetRecoilState(windowWidthState);
   const setSection1 = useSetRecoilState<ISection>(section1State);
   const setSection2 = useSetRecoilState<ISection>(section2State);
   const setSection3 = useSetRecoilState<ISection>(section3State);
   const setSection4 = useSetRecoilState<ISection>(section4State);
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
+  document.cookie = "crossCookie=bar; SameSite=None; Secure";
 
   // Set layout
   useEffect(() => {
@@ -69,6 +72,7 @@ function App() {
   return (
     <>
       <Wrapper>
+        <Indicator scrollYProgress={scrollYProgress} />
         <Header />
         <Section1 scrollY={scrollY}></Section1>
         <Section2 scrollY={scrollY}></Section2>

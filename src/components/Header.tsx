@@ -19,6 +19,10 @@ const Items = styled.div`
   width: 100%;
   max-width: 1000px;
   font-size: 1rem;
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 const A = styled(motion.a)`
   color: white;
@@ -27,6 +31,10 @@ const A = styled(motion.a)`
   padding: 5px 15px 5px 15px;
   border-radius: 100000px;
   font-weight: lighter;
+  @media screen and (max-width: 1024px) {
+    margin-left: 0.7em;
+    padding: 4px 10px 4px 10px;
+  }
 `;
 const Logo = styled.img`
   margin-right: auto;
