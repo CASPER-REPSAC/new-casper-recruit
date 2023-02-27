@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/static/js/main.68e6a468.js",
-    "index.html": "/index.html",
-    "main.68e6a468.js.map": "/static/js/main.68e6a468.js.map"
+    "main.js": "/new-casper-recruit/static/js/main.35542068.js",
+    "index.html": "/new-casper-recruit/index.html",
+    "main.35542068.js.map": "/new-casper-recruit/static/js/main.35542068.js.map"
   },
   "entrypoints": [
-    "static/js/main.68e6a468.js"
+    "static/js/main.35542068.js"
   ]
 }
