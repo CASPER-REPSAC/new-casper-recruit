@@ -1,5 +1,6 @@
 import { useScroll } from "framer-motion";
 import React, { useEffect } from "react";
+import { Cookies, useCookies } from "react-cookie";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
@@ -13,17 +14,16 @@ import {
 } from "./atom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Indicator from "./components/Indicator";
 import Section1 from "./components/sections/Section1";
 import Section2 from "./components/sections/Section2";
 import Section3 from "./components/sections/Section3";
 import Section4 from "./components/sections/Section4";
 
-const Wrapper = styled.div`
-  width: 100vw;
-`;
+const Wrapper = styled.div``;
 
 function App() {
+  const cookies = new Cookies();
+  cookies.set("crossCookie", "bar", { secure: true, sameSite: "none" });
   const [windowHeight, setWindowHeight] = useRecoilState(windowHeightState);
   const setWindowWidth = useSetRecoilState(windowWidthState);
   const setSection1 = useSetRecoilState<ISection>(section1State);
@@ -31,7 +31,6 @@ function App() {
   const setSection3 = useSetRecoilState<ISection>(section3State);
   const setSection4 = useSetRecoilState<ISection>(section4State);
   const { scrollY, scrollYProgress } = useScroll();
-  document.cookie = "crossCookie=bar; SameSite=None; Secure";
 
   // Set layout
   useEffect(() => {
@@ -70,17 +69,14 @@ function App() {
   });
 
   return (
-    <>
-      <Wrapper>
-        <Indicator scrollYProgress={scrollYProgress} />
-        <Header />
-        <Section1 scrollY={scrollY}></Section1>
-        <Section2 scrollY={scrollY}></Section2>
-        <Section3 scrollY={scrollY}></Section3>
-        <Section4 />
-      </Wrapper>
+    <Wrapper>
+      <Header scrollYProgress={scrollYProgress} />
+      <Section1 scrollY={scrollY}></Section1>
+      <Section2 scrollY={scrollY}></Section2>
+      <Section3 scrollY={scrollY}></Section3>
+      <Section4 />
       <Footer />
-    </>
+    </Wrapper>
   );
 }
 

@@ -151,9 +151,14 @@ function Section1({ scrollY }: ISectionProps) {
     }
   }, [windowHeight, windowWidth]);
 
+  useEffect(() => {
+    if (imgLoad) {
+      context?.drawImage(videoImages[Math.round(imgIdx.get())], 0, 0);
+    }
+  }, [imgLoad, context, imgIdx, videoImages]);
+
   // Draw images
   if (imgLoad) {
-    context?.drawImage(videoImages[Math.round(imgIdx.get())], 0, 0);
     imgIdx.on("change", (idx) => {
       context?.drawImage(videoImages[Math.round(idx)], 0, 0);
     });
@@ -163,6 +168,8 @@ function Section1({ scrollY }: ISectionProps) {
     <Wrapper style={{ height: info.scrollHeight }}>
       <Div>
         <CasperWhite />
+        <div>기간: 23. 03. 13 까지</div>
+        <div>대상: 창원대학교 컴퓨터공학과 1,2학년 / 정보통신공학과 1학년</div>
       </Div>
       <Div>
         <Iframe

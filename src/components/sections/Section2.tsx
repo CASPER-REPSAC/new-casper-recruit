@@ -1,14 +1,15 @@
 import { motion, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { section1State, section2State } from "../../atom";
+import {
+  section1State,
+  section2State,
+  windowHeightState,
+  windowWidthState,
+} from "../../atom";
 import { ISectionProps } from "./interfaces";
 
-const Sticky = styled(motion.div)`
-  position: sticky;
-  top: 50%;
-  transform: translate3d(0, -50%, 0);
-`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,8 +17,10 @@ const Wrapper = styled.div`
   padding-top: 30vh;
 `;
 
-const StickyBody = styled(Sticky)`
-  top: 55%;
+const StickyBody = styled(motion.div)<{ top: string }>`
+  position: sticky;
+
+  top: ${(props) => props.top};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,6 +44,7 @@ const Items = styled.div`
   margin-top: 2em;
 
   @media screen and (max-width: 1024px) {
+    width: 250px;
     height: 50vh;
   }
 `;
@@ -108,6 +112,7 @@ function Section2({ scrollY }: ISectionProps) {
   const section1Info = useRecoilValue(section1State);
   const prevHeight = section1Info.scrollHeight;
   const info = useRecoilValue(section2State);
+  const stickBodyRef = useRef<HTMLDivElement>(null);
   const scrollRatio = useTransform(
     scrollY,
     [prevHeight, prevHeight + info.scrollHeight],
@@ -156,9 +161,27 @@ function Section2({ scrollY }: ISectionProps) {
     [50, 0, 0, -50]
   );
 
+  const windowHeight = useRecoilValue(windowHeightState);
+  const windowWidth = useRecoilValue(windowWidthState);
+  const [bodyHeight, setBodyHeight] = useState(0);
+
+  useEffect(() => {
+    if (stickBodyRef.current) {
+      setBodyHeight(stickBodyRef.current?.clientHeight);
+      console.log("body width: ", stickBodyRef.current?.clientHeight);
+    }
+  }, [stickBodyRef, windowWidth]);
+
+  const [top, setTop] = useState(0);
+  useEffect(() => {
+    if (bodyHeight) {
+      setTop((windowHeight - 65 - bodyHeight) / 2 + 65);
+    }
+  }, [windowHeight, bodyHeight]);
+
   return (
     <Wrapper style={{ height: info.scrollHeight }}>
-      <StickyBody>
+      <StickyBody ref={stickBodyRef} top={`${top}px`}>
         <Title>
           <H1>ABOUT US</H1>
           <H2>Casper의 연혁과 소개입니다.</H2>
@@ -193,7 +216,6 @@ function Section2({ scrollY }: ISectionProps) {
               </P>
             </Message>
           </Item>
-
           <Item style={{ opacity: opacity3, x: x3 }}>
             <Circle>
               <Img src="images/aboutus/3.jpg" alt="3" />
@@ -209,7 +231,6 @@ function Section2({ scrollY }: ISectionProps) {
               </P>
             </Message>
           </Item>
-
           <Item style={{ opacity: opacity4, x: x4 }}>
             <Circle>
               <Img src="images/aboutus/4.jpg" alt="4" />

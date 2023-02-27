@@ -1,4 +1,5 @@
 import React from "react";
+import { CookiesProvider } from "react-cookie";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createGlobalStyle } from "styled-components";
@@ -60,14 +61,13 @@ table {
 	border-spacing: 0;
 }
 `;
-
 root.render(
-  <>
+  <React.StrictMode>
     <RecoilRoot>
-      <GlobalStyle />
-      {/* <React.StrictMode> */}
-      <App />
-      {/* </React.StrictMode> */}
+      <CookiesProvider>
+        <GlobalStyle />
+        <App />
+      </CookiesProvider>
     </RecoilRoot>
-  </>
+  </React.StrictMode>
 );

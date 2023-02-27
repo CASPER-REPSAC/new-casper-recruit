@@ -27,7 +27,7 @@ const Canvas = styled(motion.canvas)``;
 const Rect = styled(motion.div)<{ position: string }>`
   position: absolute;
   ${(props) => (props.position === "right" ? "right:0;" : "left:0;")}
-  width: 15%;
+  width: 15vw;
   height: 100%;
   background-color: white;
   z-index: 1;
@@ -40,11 +40,13 @@ function Section3({ scrollY }: ISectionProps) {
   const windowWidth = useRecoilValue(windowWidthState);
   const windowHeight = useRecoilValue(windowHeightState);
   const info = useRecoilValue(section3State);
+  const [img1, setImg1] = useState<HTMLImageElement>();
+  const [img2, setImg2] = useState<HTMLImageElement>();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvasRatio, setCanvasRatio] = useState(1);
   const section1Info = useRecoilValue(section1State);
   const section2Info = useRecoilValue(section2State);
-  const rectWidth = canvasWidth * 0.15;
+  const rectWidth = windowWidth * 0.15;
   const prevHeight = section1Info.scrollHeight + section2Info.scrollHeight;
   const scrollRatio = useTransform(
     scrollY,
@@ -54,17 +56,16 @@ function Section3({ scrollY }: ISectionProps) {
   const rectX1 = useTransform(
     scrollY,
     [prevHeight - windowHeight * 0.5, prevHeight],
-    [0, -(rectWidth * canvasRatio)]
+    [0, -rectWidth]
   );
   const rectX2 = useTransform(
     scrollY,
     [prevHeight - windowHeight * 0.5, prevHeight],
-    [0, rectWidth * canvasRatio]
+    [0, rectWidth]
   );
-  const blend1Height = useTransform(scrollRatio, [0, 0], [0, canvasHeight]);
-  const blend2Height = useTransform(scrollRatio, [0, 0.3], [0, canvasHeight]);
-  const blend3Height = useTransform(scrollRatio, [0.3, 0.6], [0, canvasHeight]);
-  const wrapperScale = useTransform(scrollRatio, [0.6, 0.8], [1, 0.5]);
+  const blend1Height = useTransform(scrollRatio, [0, 0.5], [0, canvasHeight]);
+  const wrapperScale = useTransform(scrollRatio, [0.5, 0.8], [1, 0.5]);
+  const context = canvasRef.current?.getContext("2d");
 
   // Transfrom canvas scale
   useEffect(() => {
@@ -76,57 +77,73 @@ function Section3({ scrollY }: ISectionProps) {
     }
   }, [windowHeight, windowWidth, canvasRef]);
 
-  // image load, draw
-  const context = canvasRef.current?.getContext("2d");
-  let img1 = new Image();
-  let img2 = new Image();
-  let img3 = new Image();
+  // image load
+  useEffect(() => {
+    let imgObj1 = new Image();
+    let imgObj2 = new Image();
+    if (info.objs.images) {
+      imgObj1.src = info.objs.images[0];
+      imgObj2.src = info.objs.images[1];
+    }
 
-  if (info.objs.images) {
-    img1.src = info.objs.images[0];
-    img2.src = info.objs.images[1];
-    img3.src = info.objs.images[2];
-  }
-  img1.onload = () => {
-    context?.drawImage(img1, 0, 0);
-  };
+    imgObj1.onload = () => {
+      setImg1(imgObj1);
+    };
+    imgObj2.onload = () => {
+      setImg2(imgObj2);
+    };
+  }, [info.objs.images]);
 
-  // blend
-  scrollRatio.on("change", (y) => {
-    context?.drawImage(
-      img1,
-      0,
-      canvasHeight - blend1Height.get(),
-      canvasWidth,
-      blend1Height.get(),
-      0,
-      canvasHeight - blend1Height.get(),
-      canvasWidth,
-      blend1Height.get()
-    );
-    context?.drawImage(
-      img2,
-      0,
-      canvasHeight - blend2Height.get(),
-      canvasWidth,
-      blend2Height.get(),
-      0,
-      canvasHeight - blend2Height.get(),
-      canvasWidth,
-      blend2Height.get()
-    );
-    context?.drawImage(
-      img3,
-      0,
-      canvasHeight - blend3Height.get(),
-      canvasWidth,
-      blend3Height.get(),
-      0,
-      canvasHeight - blend3Height.get(),
-      canvasWidth,
-      blend3Height.get()
-    );
+  // 첫 로드시 이미지 draw
+  useEffect(() => {
+    if (img1 && img2) {
+      const y = scrollRatio.get();
+      if (y < 0.3) {
+        context?.drawImage(
+          img1,
+          0,
+          0,
+          canvasWidth,
+          canvasHeight - blend1Height.get(),
+          0,
+          0,
+          canvasWidth,
+          canvasHeight - blend1Height.get()
+        );
+        context?.drawImage(
+          img2,
+          0,
+          canvasHeight - blend1Height.get(),
+          canvasWidth,
+          blend1Height.get(),
+          0,
+          canvasHeight - blend1Height.get(),
+          canvasWidth,
+          blend1Height.get()
+        );
+      } else {
+        context?.drawImage(img2, 0, 0);
+      }
+    }
   });
+
+  if (img1 && img2) {
+    // 0 ~ 0.3 구간 애니메이션
+    blend1Height.on("change", (h) => {
+      context?.drawImage(img1, 0, 0);
+      context?.drawImage(
+        img2,
+        0,
+        canvasHeight - h,
+        canvasWidth,
+        h,
+        0,
+        canvasHeight - h,
+        canvasWidth,
+        h
+      );
+    });
+  }
 
   return (
     <Wrapper style={{ height: info.scrollHeight }}>
