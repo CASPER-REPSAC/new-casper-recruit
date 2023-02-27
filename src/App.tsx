@@ -1,6 +1,6 @@
 import { useScroll } from "framer-motion";
 import React, { useEffect } from "react";
-import { Cookies, useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import {
