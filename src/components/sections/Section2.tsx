@@ -168,7 +168,6 @@ function Section2({ scrollY }: ISectionProps) {
   useEffect(() => {
     if (stickBodyRef.current) {
       setBodyHeight(stickBodyRef.current?.clientHeight);
-      console.log("body width: ", stickBodyRef.current?.clientHeight);
     }
   }, [stickBodyRef, windowWidth]);
 
