@@ -1,13 +1,7 @@
 import { motion, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import {
-  section1State,
-  section2State,
-  windowHeightState,
-  windowWidthState,
-} from "../../atom";
+import { section1State, section2State } from "../../atom";
 import { ISectionProps } from "./interfaces";
 
 const Wrapper = styled.div`
