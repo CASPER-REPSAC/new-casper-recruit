@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/new-casper-recruit/static/js/main.86791f15.js",
+    "main.js": "/new-casper-recruit/static/js/main.9bbdc63a.js",
     "index.html": "/new-casper-recruit/index.html",
-    "main.86791f15.js.map": "/new-casper-recruit/static/js/main.86791f15.js.map"
+    "main.9bbdc63a.js.map": "/new-casper-recruit/static/js/main.9bbdc63a.js.map"
   },
   "entrypoints": [
-    "static/js/main.86791f15.js"
+    "static/js/main.9bbdc63a.js"
   ]
 }
