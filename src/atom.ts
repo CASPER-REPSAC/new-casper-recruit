@@ -38,11 +38,9 @@ export const section3State = atom<ISection>({
     scrollHeight: 0,
     objs: {
       images: [
-        // 1920 x 1080(권장), 이상은 잘림
+        // 해상도 너무 높은거 쓰지 말 것
         "images/blender-images/img1.jpg",
         "images/blender-images/img2.jpg",
-        "images/blender-images/img3.jpg",
-        "images/blender-images/img4.jpg",
       ],
     },
   },
@@ -54,7 +52,23 @@ export const section4State = atom<ISection>({
     type: "normal",
     heightNum: 3,
     scrollHeight: 0,
-    objs: {},
+    objs: {
+      images: [
+        "images/after-casper/ahnlab.png",
+        "images/after-casper/bnk.png",
+        "images/after-casper/cyberone.png",
+        "images/after-casper/denso.png",
+        "images/after-casper/estsoft.png",
+        "images/after-casper/kakaobank.png",
+        "images/after-casper/naver.png",
+        "images/after-casper/nhn.png",
+        "images/after-casper/penta.png",
+        "images/after-casper/samsung.png",
+        "images/after-casper/shinhan.png",
+        "images/after-casper/skinfo.png",
+        "images/after-casper/tiger.png",
+      ],
+    },
   },
 });
 

@@ -158,11 +158,13 @@ function Section1({ scrollY }: ISectionProps) {
   }, [imgLoad, context, imgIdx, videoImages]);
 
   // Draw images
-  if (imgLoad) {
-    imgIdx.on("change", (idx) => {
-      context?.drawImage(videoImages[Math.round(idx)], 0, 0);
-    });
-  }
+  useEffect(() => {
+    if (imgLoad) {
+      imgIdx.on("change", (idx) => {
+        context?.drawImage(videoImages[Math.round(idx)], 0, 0);
+      });
+    }
+  });
 
   return (
     <Wrapper style={{ height: info.scrollHeight }}>

@@ -1,6 +1,8 @@
 import { motion, Variants } from "framer-motion";
 import styled from "styled-components";
 import { FaWifi, FaLaptop, FaFileAlt, FaLock } from "react-icons/fa";
+import { section4State } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,9 +22,11 @@ const Div = styled.div`
 
 const Row = styled(motion.div)`
   display: flex;
-  width: 1000px;
+  width: 90%;
+  gap: 5em;
   justify-content: space-between;
   margin-bottom: 1em;
+  flex-wrap: wrap;
 
   @media screen and (max-width: 1024px) {
     width: 300px;
@@ -88,6 +92,7 @@ const JoinDesc = styled.div`
   text-align: center;
   height: 60px;
   margin-top: 1em;
+  width: 90%;
 `;
 
 const rowVars: Variants = {
@@ -115,12 +120,19 @@ const Img = styled(motion.img)`
 `;
 
 function Section4() {
+  const info = useRecoilValue(section4State);
+
   return (
     <Wrapper>
       <Div>
         <H1>EDUCATION</H1>
         <H2>신입회원 대상으로 진행되는 교육과정입니다.</H2>
-        <Row variants={rowVars} initial="initial" whileInView="animate">
+        <Row
+          variants={rowVars}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
           <Item variants={itemVars}>
             <Circle>
               <FaFileAlt color="white" size={60} />
@@ -168,73 +180,16 @@ function Section4() {
       </Div>
       <Div>
         <H1>AFTER CASPER</H1>
-        <H2> Casper 졸업 그 이후...</H2>
-        <Row variants={rowVars} initial="initial" whileInView="animate">
-          <Img
-            variants={itemVars}
-            src="images/after_casper/ahnlab.png"
-            alt="ahnlab"
-          />
-
-          <Img
-            variants={itemVars}
-            src="images/after_casper/Cyberone.png"
-            alt="Cyberone"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/denso.png"
-            alt="denso"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/estsoft.png"
-            alt="estsoft"
-          />
-        </Row>
-        <Row variants={rowVars} initial="initial" whileInView="animate">
-          <Img
-            variants={itemVars}
-            src="images/after_casper/bnk.png"
-            alt="knbank"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/naver.png"
-            alt="naver"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/nhn.png"
-            alt="nhn"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/penta.png"
-            alt="penta"
-          />
-        </Row>
-        <Row variants={rowVars} initial="initial" whileInView="animate">
-          <Img
-            variants={itemVars}
-            src="images/after_casper/shinhan.png"
-            alt="shinhan"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/skinfo.png"
-            alt="skinfo"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/samsung.png"
-            alt="samsung"
-          />
-          <Img
-            variants={itemVars}
-            src="images/after_casper/tiger.png"
-            alt="tiger"
-          />
+        <H2>Casper 졸업 그 이후...</H2>
+        <Row
+          variants={rowVars}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
+          {info.objs.images?.map((path, idx) => (
+            <Img variants={itemVars} src={path} key={idx} />
+          ))}
         </Row>
       </Div>
       <Div>
@@ -243,7 +198,7 @@ function Section4() {
           href="https://forms.gle/siW8demcHTMSbtL69"
           whileHover={{
             backgroundColor: "#0066cc",
-            color: "white",
+            color: "rgb(255,255,255)",
           }}
         >
           지원 하기

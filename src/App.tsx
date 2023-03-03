@@ -59,7 +59,7 @@ function App() {
   // Set innerheight
   useEffect(() => {
     const handleResize = () => {
-      setWindowHeight(window.innerHeight);
+      setWindowHeight(window.outerHeight);
       setWindowWidth(window.innerWidth);
     };
     window.addEventListener("resize", handleResize);

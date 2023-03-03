@@ -17,10 +17,11 @@ const Wrapper = styled.div`
   padding-top: 30vh;
 `;
 
-const StickyBody = styled(motion.div)<{ top: string }>`
+const StickyBody = styled(motion.div)`
   position: sticky;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
 
-  top: ${(props) => props.top};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,88 +100,69 @@ const H2 = styled.div`
   font-size: 1.1rem;
   font-weight: lighter;
 `;
+
+const ItemTitle = styled.div`
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1em;
+  @media screen and (max-width: 1024px) {
+    text-align: center;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+`;
 const H3 = styled.div`
   font-size: 2rem;
+  font-weight: bold;
 `;
 const H4 = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5em;
+  display: flex;
+  align-items: flex-end;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: rgb(100, 100, 100);
+  @media screen and (max-width: 1024px) {
+    display: block;
+    text-align: center;
+  }
 `;
 
 function Section2({ scrollY }: ISectionProps) {
   const section1Info = useRecoilValue(section1State);
   const prevHeight = section1Info.scrollHeight;
   const info = useRecoilValue(section2State);
-  const stickBodyRef = useRef<HTMLDivElement>(null);
   const scrollRatio = useTransform(
     scrollY,
     [prevHeight, prevHeight + info.scrollHeight],
     [0, 1]
   );
 
-  const opacity1 = useTransform(
-    scrollRatio,
-    [0.1, 0.18, 0.22, 0.25],
-    [0, 1, 1, 0]
-  );
+  const opacity1 = useTransform(scrollRatio, [0, 0.1, 0.15, 0.2], [0, 1, 1, 0]);
   const opacity2 = useTransform(
     scrollRatio,
-    [0.25, 0.33, 0.37, 0.4],
+    [0.2, 0.3, 0.35, 0.4],
     [0, 1, 1, 0]
   );
   const opacity3 = useTransform(
     scrollRatio,
-    [0.4, 0.48, 0.52, 0.55],
+    [0.4, 0.5, 0.55, 0.6],
     [0, 1, 1, 0]
   );
   const opacity4 = useTransform(
     scrollRatio,
-    [0.55, 0.63, 0.67, 0.7],
+    [0.6, 0.7, 0.75, 0.8],
     [0, 1, 1, 0]
   );
-
-  const x1 = useTransform(
-    scrollRatio,
-    [0.1, 0.18, 0.22, 0.25],
-    [50, 0, 0, -50]
-  );
-  const x2 = useTransform(
-    scrollRatio,
-    [0.25, 0.33, 0.37, 0.4],
-    [50, 0, 0, -50]
-  );
-  const x3 = useTransform(
-    scrollRatio,
-    [0.4, 0.48, 0.52, 0.55],
-    [50, 0, 0, -50]
-  );
-  const x4 = useTransform(
-    scrollRatio,
-    [0.55, 0.63, 0.67, 0.7],
-    [50, 0, 0, -50]
-  );
-
-  const windowHeight = useRecoilValue(windowHeightState);
-  const windowWidth = useRecoilValue(windowWidthState);
-  const [bodyHeight, setBodyHeight] = useState(0);
-
-  useEffect(() => {
-    if (stickBodyRef.current) {
-      setBodyHeight(stickBodyRef.current?.clientHeight);
-    }
-  }, [stickBodyRef, windowWidth]);
-
-  const [top, setTop] = useState(0);
-  useEffect(() => {
-    if (bodyHeight) {
-      setTop((windowHeight - 65 - bodyHeight) / 2 + 65);
-    }
-  }, [windowHeight, bodyHeight]);
+  const opacity5 = useTransform(scrollRatio, [0.8, 0.9, 0.95, 1], [0, 1, 1, 0]);
+  const x1 = useTransform(scrollRatio, [0, 0.1, 0.15, 0.2], [50, 0, 0, -50]);
+  const x2 = useTransform(scrollRatio, [0.2, 0.3, 0.35, 0.4], [50, 0, 0, -50]);
+  const x3 = useTransform(scrollRatio, [0.4, 0.5, 0.55, 0.6], [50, 0, 0, -50]);
+  const x4 = useTransform(scrollRatio, [0.6, 0.7, 0.75, 0.8], [50, 0, 0, -50]);
+  const x5 = useTransform(scrollRatio, [0.8, 0.9, 0.95, 1], [50, 0, 0, -50]);
 
   return (
     <Wrapper style={{ height: info.scrollHeight }}>
-      <StickyBody ref={stickBodyRef} top={`${top}px`}>
+      <StickyBody>
         <Title>
           <H1>ABOUT US</H1>
           <H2>Casper의 연혁과 소개입니다.</H2>
@@ -191,8 +173,11 @@ function Section2({ scrollY }: ISectionProps) {
               <Img src="images/aboutus/1.jpg" alt="1" />
             </Circle>
             <Message>
-              <H3>MAY 2000</H3>
-              <H4>Beginnings</H4>
+              <ItemTitle>
+                <H3>Beginnings</H3>
+                <H4>2000.05</H4>
+              </ItemTitle>
+
               <P>
                 2000년 5월 1일 이종근 교수님 아래서 창단된 정보보호
                 동아리입니다. 보안과 관련된 여러 가지 분야에 대해 학습하며,
@@ -206,8 +191,10 @@ function Section2({ scrollY }: ISectionProps) {
               <Img src="images/aboutus/2.jpg" alt="2" />
             </Circle>
             <Message>
-              <H3>JUNE 2006</H3>
-              <H4>WE ARE CERT</H4>
+              <ItemTitle>
+                <H3>WE ARE CERT</H3>
+                <H4>2006.06</H4>
+              </ItemTitle>
               <P>
                 창원대학교 정보전산원에 소속된 CERT팀은 매월 E-Clean Day를
                 실시하여 학내 컴퓨터 보안에 대한 점검과, 학내망 모의해킹을 통한
@@ -220,8 +207,11 @@ function Section2({ scrollY }: ISectionProps) {
               <Img src="images/aboutus/3.jpg" alt="3" />
             </Circle>
             <Message>
-              <H3>JULY 2006</H3>
-              <H4>FOUND U.U.U</H4>
+              <ItemTitle>
+                <H3>FOUND U.U.U</H3>
+                <H4>2006.07</H4>
+              </ItemTitle>
+
               <P>
                 창원대학교와 함께 전국의 대학교가 모여 CERT팀 연합을 위해 설립한
                 연합으로써 매년 2회 씩 정기 워크샵을 개최해 다양한 정보보호
@@ -235,12 +225,33 @@ function Section2({ scrollY }: ISectionProps) {
               <Img src="images/aboutus/4.jpg" alt="4" />
             </Circle>
             <Message>
-              <H3>MAY 2008</H3>
-              <H4>Join KUCIS</H4>
+              <ItemTitle>
+                <H3>Join KUCIS</H3>
+                <H4>2008.05</H4>
+              </ItemTitle>
               <P>
                 한국인터넷진흥원(KISA)에서 발주한 사업으로 40여개의 전국
                 정보보호 동아리로 구성되어 있으며, 현재까지 KUCIS로 부터
                 여러가지 지원과, 교육 및 세미나 등을 제공받고 있습니다.
+              </P>
+            </Message>
+          </Item>
+          <Item style={{ opacity: opacity5, x: x5 }}>
+            <Circle>
+              <Img src="images/aboutus/5.jpg" alt="5" />
+            </Circle>
+            <Message>
+              <ItemTitle>
+                <H3>START UP!</H3>
+                <H4>2014.05</H4>
+              </ItemTitle>
+              <P>
+                웹 취약점 점검 서비스(모의해킹)를 제공하는 창업동아리팀으로
+                포스코, 경남은행, LINC등을 대상으로 점검 서비스를 시행하였고,
+                LINC 창업동아리 부문 2014년도 최우수, 2015년도 대상에
+                선정되었습니다. 또한 15년 전국여성해킹방어대회 Power of XX에서
+                3위를 수상하였습니다. 현재에는 각종 공모전, 취약점 분석 등의
+                활동을 진행하고 있습니다.
               </P>
             </Message>
           </Item>
