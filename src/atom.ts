@@ -40,7 +40,7 @@ export const section3State = atom<ISection>({
       images: [
         // 해상도 너무 높은거 쓰지 말 것
         "images/blender-images/blend-img1.jpg",
-        "images/blender-images/blendimg2.jpg",
+        "images/blender-images/blend-img2.jpg",
       ],
     },
   },
