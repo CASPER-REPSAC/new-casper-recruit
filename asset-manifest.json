@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "https://casper-repsac.github.io/new-casper-recruit/static/js/main.c6e4a8a3.js",
+    "main.js": "https://casper-repsac.github.io/new-casper-recruit/static/js/main.b495c126.js",
     "index.html": "https://casper-repsac.github.io/new-casper-recruit/index.html",
-    "main.c6e4a8a3.js.map": "https://casper-repsac.github.io/new-casper-recruit/static/js/main.c6e4a8a3.js.map"
+    "main.b495c126.js.map": "https://casper-repsac.github.io/new-casper-recruit/static/js/main.b495c126.js.map"
   },
   "entrypoints": [
-    "static/js/main.c6e4a8a3.js"
+    "static/js/main.b495c126.js"
   ]
 }
