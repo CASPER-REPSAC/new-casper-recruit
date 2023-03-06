@@ -62,9 +62,10 @@ function App() {
   // window resize 반응하여 높이 너비 설정
   useEffect(() => {
     const handleResize = () => {
-      setWindowHeight(window.outerHeight);
+      setWindowHeight(window.screen.height);
       setWindowWidth(window.innerWidth);
     };
+
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
