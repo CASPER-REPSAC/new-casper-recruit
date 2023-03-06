@@ -4,7 +4,6 @@ import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
-import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -62,15 +61,14 @@ table {
 	border-spacing: 0;
 }
 `;
+
 root.render(
-  // <React.StrictMode>
-  <RecoilRoot>
-    <CookiesProvider>
-      <GlobalStyle />
-      <HashRouter>
+  <React.StrictMode>
+    <RecoilRoot>
+      <CookiesProvider>
+        <GlobalStyle />
         <App />
-      </HashRouter>
-    </CookiesProvider>
-  </RecoilRoot>
-  // </React.StrictMode>
+      </CookiesProvider>
+    </RecoilRoot>
+  </React.StrictMode>
 );

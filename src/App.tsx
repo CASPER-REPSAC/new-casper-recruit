@@ -22,8 +22,11 @@ import Section4 from "./components/sections/Section4";
 const Wrapper = styled.div``;
 
 function App() {
+  // 필요 없는 코드 일지도? 확인 귀찮아서 그대로 둠
   const cookies = new Cookies();
   cookies.set("crossCookie", "bar", { secure: true, sameSite: "none" });
+  //
+
   const [windowHeight, setWindowHeight] = useRecoilState(windowHeightState);
   const setWindowWidth = useSetRecoilState(windowWidthState);
   const setSection1 = useSetRecoilState<ISection>(section1State);
@@ -32,7 +35,7 @@ function App() {
   const setSection4 = useSetRecoilState<ISection>(section4State);
   const { scrollY, scrollYProgress } = useScroll();
 
-  // Set layout
+  // Section1 ~ 4 높이 설정
   useEffect(() => {
     setSection1((old) => {
       const copy = { ...old };
@@ -56,7 +59,7 @@ function App() {
     });
   }, [setSection1, setSection2, setSection3, setSection4, windowHeight]);
 
-  // Set innerheight
+  // window resize 반응하여 높이 너비 설정
   useEffect(() => {
     const handleResize = () => {
       setWindowHeight(window.outerHeight);
