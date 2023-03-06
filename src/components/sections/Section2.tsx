@@ -15,14 +15,12 @@ const StickyBody = styled(motion.div)`
   position: sticky;
   top: 50%;
   transform: translate3d(0, -50%, 0);
-
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90vw;
   padding-top: 10vh;
   padding-bottom: 10vh;
-
   background-color: rgb(249, 249, 249);
 `;
 const Title = styled.div`
