@@ -201,7 +201,7 @@ function Section4() {
             color: "rgb(255,255,255)",
           }}
         >
-          지원 하기
+          지원하기
         </Button>
         <JoinDesc>
           <div>기간: 23. 03. 13 까지</div>

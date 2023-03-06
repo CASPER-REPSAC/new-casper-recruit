@@ -74,7 +74,7 @@ function Header({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
             whileHover={{ backgroundColor: "#0066cc" }}
             href="#"
             onClick={() => {
-              alert("페이지 준비 중 입니다!");
+              alert("페이지 리뉴얼 중 입니다!");
             }}
           >
             Homepage
@@ -83,7 +83,7 @@ function Header({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
             whileHover={{ backgroundColor: "#0066cc" }}
             href="https://forms.gle/siW8demcHTMSbtL69"
           >
-            지원 하기
+            지원하기
           </A>
         </Items>
       </Nav>
