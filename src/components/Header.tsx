@@ -36,6 +36,7 @@ const A = styled(motion.a)`
   text-decoration: none;
   margin-left: 1em;
   padding: 5px 15px 5px 15px;
+  background-color: #0066cc;
   border-radius: 100000px;
   font-weight: lighter;
   @media screen and (max-width: 1024px) {

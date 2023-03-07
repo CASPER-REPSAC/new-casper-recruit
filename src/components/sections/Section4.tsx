@@ -204,7 +204,7 @@ function Section4() {
           지원하기
         </Button>
         <JoinDesc>
-          <div>기간: 23. 03. 13 까지</div>
+          <div>기간: 23. 03. 15 까지</div>
           <div>
             대상: 창원대학교 컴퓨터공학과 1,2학년 / 정보통신공학과 1학년
           </div>

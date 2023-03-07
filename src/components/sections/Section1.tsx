@@ -1,9 +1,9 @@
-import { motion, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useRecoilValue } from "recoil";
 import { section1State, windowHeightState, windowWidthState } from "../../atom";
 import { ISectionProps } from "./interfaces";
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CasperWhite } from "../Casper";
 
 const Sticky = styled(motion.div)`
@@ -75,6 +75,15 @@ const CavasWrapper = styled.div`
   z-index: -1;
 `;
 
+const LoadingCircle = styled.svg`
+  width: 150px;
+  height: 150px;
+  position: sticky;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+`;
+
 function Section1({ scrollY }: ISectionProps) {
   const windowWidth = useRecoilValue(windowWidthState);
   const windowHeight = useRecoilValue(windowHeightState);
@@ -85,6 +94,24 @@ function Section1({ scrollY }: ISectionProps) {
   const [videoImages, setVideoImages] = useState<Array<HTMLImageElement>>([]);
   const [imgLoad, setImgLoad] = useState(false);
   const scrollRatio = useTransform(scrollY, [0, info.scrollHeight], [0, 1]);
+  const loadedImgCount = useRef(0);
+  const allImgCount = useRef(765);
+  const loadedImgCountMotionVal = useMotionValue(0);
+  const loadingPercent = useTransform(
+    loadedImgCountMotionVal,
+    [0, allImgCount.current],
+    [0, 1]
+  );
+  loadingPercent.on("change", (v) => console.log(v));
+
+  const incLoadedImgCount = useCallback(() => {
+    loadedImgCount.current += 1;
+    loadedImgCountMotionVal.set(loadedImgCount.current);
+    if (loadedImgCount.current === allImgCount.current) {
+      setImgLoad(true);
+    }
+  }, []);
+
   // animation values
   const opacity1 = useTransform(
     scrollRatio,
@@ -126,20 +153,35 @@ function Section1({ scrollY }: ISectionProps) {
     [0.75, 0.82, 0.86, 0.9],
     [20, 0, 0, -20]
   );
-  const imgIdx = useTransform(scrollRatio, [0, 1], [0, 764]);
+  const imgIdx = useTransform(
+    scrollRatio,
+    [0, 1],
+    [0, allImgCount.current - 1]
+  );
   const videoOpacity = useTransform(scrollRatio, [0.9, 1], [1, 0]);
 
   // Load images
   useEffect(() => {
     const videoImages: Array<HTMLImageElement> = [];
-    for (let i = 0; i < 765; i++) {
+    for (let i = 0; i < allImgCount.current; i++) {
       const img = new Image();
       img.src = `images/hacking2-images/img-${i + 1}.jpg`;
+      img.addEventListener("load", incLoadedImgCount, {
+        once: true,
+      });
+      img.addEventListener("error", incLoadedImgCount, {
+        once: true,
+      });
       videoImages.push(img);
     }
     setVideoImages(videoImages);
-    setImgLoad(true);
-  }, []);
+
+    return () =>
+      videoImages.forEach((img) => {
+        img.removeEventListener("load", incLoadedImgCount);
+        img.removeEventListener("error", incLoadedImgCount);
+      });
+  }, [incLoadedImgCount]);
 
   // Set canvas scale
   useEffect(() => {
@@ -151,8 +193,9 @@ function Section1({ scrollY }: ISectionProps) {
     }
   }, [windowHeight, windowWidth]);
 
+  // 최초 이미지 로드(draw)
   useEffect(() => {
-    if (imgLoad) {
+    if (imgLoad && context) {
       context?.drawImage(videoImages[Math.round(imgIdx.get())], 0, 0);
     }
   }, [imgLoad, context, imgIdx, videoImages]);
@@ -168,29 +211,48 @@ function Section1({ scrollY }: ISectionProps) {
 
   return (
     <Wrapper style={{ height: info.scrollHeight }}>
-      <Div>
-        <CasperWhite />
-        <div>기간: 23. 03. 13 까지</div>
-        <div>대상: 창원대학교 컴퓨터공학과 1,2학년 / 정보통신공학과 1학년</div>
-      </Div>
-      <Div>
-        <Iframe
-          src="https://www.youtube.com/embed/rkmVWnijyA8"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          style={{ zIndex: 3 }}
-        ></Iframe>
-      </Div>
-      <StickyDiv>
-        <Message style={{ opacity: opacity1, y: y1 }}>Hacking</Message>
-        <Message style={{ opacity: opacity2, y: y2 }}>Programming</Message>
-        <Message style={{ opacity: opacity3, y: y3 }}>Security</Message>
-        <Message style={{ opacity: opacity4, y: y4 }}>
-          <H2>창원대학교</H2>
-          <H1>정보 보안 동아리</H1>
-        </Message>
-      </StickyDiv>
+      {imgLoad ? (
+        <>
+          <Div>
+            <CasperWhite />
+            <div>기간: 23. 03. 15 까지</div>
+            <div>
+              대상: 창원대학교 컴퓨터공학과 1,2학년 / 정보통신공학과 1학년
+            </div>
+          </Div>
+          <Div>
+            <Iframe
+              src="https://www.youtube.com/embed/rkmVWnijyA8"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{ zIndex: 3 }}
+            ></Iframe>
+          </Div>
+          <StickyDiv>
+            <Message style={{ opacity: opacity1, y: y1 }}>Hacking</Message>
+            <Message style={{ opacity: opacity2, y: y2 }}>Programming</Message>
+            <Message style={{ opacity: opacity3, y: y3 }}>Security</Message>
+            <Message style={{ opacity: opacity4, y: y4 }}>
+              <H2>창원대학교</H2>
+              <H1>정보 보안 동아리</H1>
+            </Message>
+          </StickyDiv>
+        </>
+      ) : (
+        <LoadingCircle fill="white">
+          <circle cx="75" cy="75" r="50" pathLength="1" />
+          <motion.circle
+            cx="75"
+            cy="75"
+            r="50"
+            pathLength="1"
+            stroke={"#0066cc"}
+            strokeWidth={10}
+            style={{ pathLength: loadingPercent }}
+          />
+        </LoadingCircle>
+      )}
 
       <CavasWrapper>
         <Canvas
