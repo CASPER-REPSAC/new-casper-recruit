@@ -102,7 +102,6 @@ function Section1({ scrollY }: ISectionProps) {
     [0, allImgCount.current],
     [0, 1]
   );
-  loadingPercent.on("change", (v) => console.log(v));
 
   const incLoadedImgCount = useCallback(() => {
     loadedImgCount.current += 1;
@@ -200,11 +199,15 @@ function Section1({ scrollY }: ISectionProps) {
     }
   }, [imgLoad, context, imgIdx, videoImages]);
 
-  // Draw images
+  // scroll image animation
   useEffect(() => {
     if (imgLoad) {
       imgIdx.on("change", (idx) => {
-        context?.drawImage(videoImages[Math.round(idx)], 0, 0);
+        try {
+          context?.drawImage(videoImages[Math.round(idx)], 0, 0);
+        } catch (e) {
+          console.log(e);
+        }
       });
     }
   });
