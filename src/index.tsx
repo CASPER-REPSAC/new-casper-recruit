@@ -1,12 +1,11 @@
-import React from "react";
-import { CookiesProvider } from "react-cookie";
-import ReactDOM from "react-dom/client";
-import { RecoilRoot } from "recoil";
-import { createGlobalStyle } from "styled-components";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { RecoilRoot } from 'recoil';
+import { createGlobalStyle } from 'styled-components';
+import App from './App';
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
 
 const GlobalStyle = createGlobalStyle`
@@ -65,10 +64,8 @@ table {
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <CookiesProvider>
-        <GlobalStyle />
-        <App />
-      </CookiesProvider>
+      <GlobalStyle />
+      <App />
     </RecoilRoot>
   </React.StrictMode>
 );
