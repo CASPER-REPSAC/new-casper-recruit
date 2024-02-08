@@ -1,26 +1,10 @@
-# Recruit
+# Introduction
+### 프로젝트 요약
 
-https://recruit.casper.or.kr
+신입생 모집을 위한 Casper의 recruit 페이지입니다.
+스크롤에 반응하는 애니메이션이 특징입니다.
 
-## local 환경
-
-.env 주석 처리
-
-```
-# PUBLIC_URL = {도메인 명}
-```
-
-```bash
-$ npm start
-```
-
-## build
-
-.env
-
-```
-PBULIC_URL = {도메인 명}
-```
-
-npm run build 후  
-github Settings 에서 도메인 설정필요
+|제목|내용|
+|:---:|:---|
+|사용기술|TypeScript, React, styled-components, recoil, framer-motion|
+|기간| 2023.03 ~ 2023.04 (3주)|
