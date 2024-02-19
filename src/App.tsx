@@ -1,8 +1,7 @@
-import { useScroll } from "framer-motion";
-import React, { useEffect } from "react";
-import { Cookies } from "react-cookie";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import styled from "styled-components";
+import { useScroll } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
 import {
   ISection,
   section1State,
@@ -11,22 +10,17 @@ import {
   section4State,
   windowHeightState,
   windowWidthState,
-} from "./atom";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Section1 from "./components/sections/Section1";
-import Section2 from "./components/sections/Section2";
-import Section3 from "./components/sections/Section3";
-import Section4 from "./components/sections/Section4";
+} from './atom';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Section1 from './components/sections/Section1';
+import Section2 from './components/sections/Section2';
+import Section3 from './components/sections/Section3';
+import Section4 from './components/sections/Section4';
 
 const Wrapper = styled.div``;
 
 function App() {
-  // 필요 없는 코드 일지도? 확인 귀찮아서 그대로 둠
-  const cookies = new Cookies();
-  cookies.set("crossCookie", "bar", { secure: true, sameSite: "none" });
-  //
-
   const [windowHeight, setWindowHeight] = useRecoilState(windowHeightState);
   const setWindowWidth = useSetRecoilState(windowWidthState);
   const setSection1 = useSetRecoilState<ISection>(section1State);
@@ -66,9 +60,9 @@ function App() {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   });
 
