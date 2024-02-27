@@ -1,10 +1,10 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useRecoilValue } from "recoil";
-import { section1State, windowHeightState, windowWidthState } from "../../atom";
-import { ISectionProps } from "./interfaces";
-import styled from "styled-components";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { CasperWhite } from "../Casper";
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useRecoilValue } from 'recoil';
+import { section1State, windowHeightState, windowWidthState } from '../../atom';
+import { ISectionProps } from './interfaces';
+import styled from 'styled-components';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { CasperWhite } from '../Casper';
 
 const Sticky = styled(motion.div)`
   position: sticky;
@@ -88,7 +88,7 @@ function Section1({ scrollY }: ISectionProps) {
   const windowWidth = useRecoilValue(windowWidthState);
   const windowHeight = useRecoilValue(windowHeightState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const context = canvasRef.current?.getContext("2d");
+  const context = canvasRef.current?.getContext('2d');
   const [canvasRatio, setCanvasRatio] = useState(1);
   const info = useRecoilValue(section1State);
   const [videoImages, setVideoImages] = useState<Array<HTMLImageElement>>([]);
@@ -165,10 +165,10 @@ function Section1({ scrollY }: ISectionProps) {
     for (let i = 0; i < allImgCount.current; i++) {
       const img = new Image();
       img.src = `images/hacking2-images/img-${i + 1}.jpg`;
-      img.addEventListener("load", incLoadedImgCount, {
+      img.addEventListener('load', incLoadedImgCount, {
         once: true,
       });
-      img.addEventListener("error", incLoadedImgCount, {
+      img.addEventListener('error', incLoadedImgCount, {
         once: true,
       });
       videoImages.push(img);
@@ -177,8 +177,8 @@ function Section1({ scrollY }: ISectionProps) {
 
     return () =>
       videoImages.forEach((img) => {
-        img.removeEventListener("load", incLoadedImgCount);
-        img.removeEventListener("error", incLoadedImgCount);
+        img.removeEventListener('load', incLoadedImgCount);
+        img.removeEventListener('error', incLoadedImgCount);
       });
   }, [incLoadedImgCount]);
 
@@ -202,7 +202,7 @@ function Section1({ scrollY }: ISectionProps) {
   // scroll image animation
   useEffect(() => {
     if (imgLoad) {
-      imgIdx.on("change", (idx) => {
+      imgIdx.on('change', (idx) => {
         try {
           context?.drawImage(videoImages[Math.round(idx)], 0, 0);
         } catch (e) {
@@ -225,9 +225,9 @@ function Section1({ scrollY }: ISectionProps) {
           </Div>
           <Div>
             <Iframe
-              src="https://www.youtube.com/embed/rkmVWnijyA8"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              src='https://www.youtube.com/embed/rkmVWnijyA8'
+              title='YouTube video player'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
               allowFullScreen
               style={{ zIndex: 3 }}
             ></Iframe>
@@ -243,14 +243,14 @@ function Section1({ scrollY }: ISectionProps) {
           </StickyDiv>
         </>
       ) : (
-        <LoadingCircle fill="white">
-          <circle cx="75" cy="75" r="50" pathLength="1" />
+        <LoadingCircle fill='white'>
+          <circle cx='75' cy='75' r='50' pathLength='1' />
           <motion.circle
-            cx="75"
-            cy="75"
-            r="50"
-            pathLength="1"
-            stroke={"#0066cc"}
+            cx='75'
+            cy='75'
+            r='50'
+            pathLength='1'
+            stroke={'#0066cc'}
             strokeWidth={10}
             style={{ pathLength: loadingPercent }}
           />
