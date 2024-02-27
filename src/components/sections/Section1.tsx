@@ -164,7 +164,7 @@ function Section1({ scrollY }: ISectionProps) {
     const videoImages: Array<HTMLImageElement> = [];
     for (let i = 0; i < allImgCount.current; i++) {
       const img = new Image();
-      img.src = `images/hacking2-images/img-${i + 1}.jpg`;
+      img.src = `images/hacking-images/img-${i + 1}.webp`;
       img.addEventListener('load', incLoadedImgCount, {
         once: true,
       });
