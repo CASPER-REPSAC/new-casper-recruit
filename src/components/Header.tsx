@@ -82,7 +82,7 @@ function Header({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
           </A>
           <A
             whileHover={{ backgroundColor: "#0066cc" }}
-            href="https://forms.gle/siW8demcHTMSbtL69"
+            href="https://forms.gle/5jWgRrptN2YB2eX99"
           >
             지원하기
           </A>
