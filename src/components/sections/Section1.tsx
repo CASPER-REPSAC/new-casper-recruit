@@ -220,7 +220,7 @@ function Section1({ scrollY }: ISectionProps) {
             <CasperWhite />
             <div>기간: 2024. 03. 13 까지</div>
             <div>
-              대상: 창원대학교 컴퓨터공학과 1~3학년 / 정보통신공학과 1학년
+              대상: 창원대학교 컴퓨터공학과 1~3학년 / 정보통신공학과 1, 2학년
             </div>
           </Div>
           <Div>
