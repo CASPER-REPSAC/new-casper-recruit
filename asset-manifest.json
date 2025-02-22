@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "https://recruit.casper.or.kr/static/js/main.71b57af0.js",
+    "main.js": "https://recruit.casper.or.kr/static/js/main.5ddb0fd1.js",
     "index.html": "https://recruit.casper.or.kr/index.html",
-    "main.71b57af0.js.map": "https://recruit.casper.or.kr/static/js/main.71b57af0.js.map"
+    "main.5ddb0fd1.js.map": "https://recruit.casper.or.kr/static/js/main.5ddb0fd1.js.map"
   },
   "entrypoints": [
-    "static/js/main.71b57af0.js"
+    "static/js/main.5ddb0fd1.js"
   ]
 }
