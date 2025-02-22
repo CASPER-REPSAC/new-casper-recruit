@@ -1,8 +1,9 @@
-import { motion, Variants } from "framer-motion";
-import styled from "styled-components";
-import { FaWifi, FaLaptop, FaFileAlt, FaLock } from "react-icons/fa";
-import { section4State } from "../../atom";
-import { useRecoilValue } from "recoil";
+import { motion, Variants } from 'framer-motion';
+import styled from 'styled-components';
+import { FaWifi, FaLaptop, FaFileAlt, FaLock } from 'react-icons/fa';
+import { section4State } from '../../atom';
+import { useRecoilValue } from 'recoil';
+import { APPLICATION_FORM_URL, DEADLINE, REQUIREMENTS } from '../../constants';
 
 const Wrapper = styled.div`
   display: flex;
@@ -129,13 +130,13 @@ function Section4() {
         <H2>신입회원 대상으로 진행되는 교육과정입니다.</H2>
         <Row
           variants={rowVars}
-          initial="initial"
-          whileInView="animate"
+          initial='initial'
+          whileInView='animate'
           viewport={{ once: true }}
         >
           <Item variants={itemVars}>
             <Circle>
-              <FaFileAlt color="white" size={60} />
+              <FaFileAlt color='white' size={60} />
             </Circle>
             <H3>C Language</H3>
             <Desc>
@@ -145,7 +146,7 @@ function Section4() {
           </Item>
           <Item variants={itemVars}>
             <Circle>
-              <FaLaptop color="white" size={60} />
+              <FaLaptop color='white' size={60} />
             </Circle>
             <H3>Linux</H3>
             <Desc>
@@ -155,7 +156,7 @@ function Section4() {
           </Item>
           <Item variants={itemVars}>
             <Circle>
-              <FaLock color="white" size={60} />
+              <FaLock color='white' size={60} />
             </Circle>
             <H3>Security</H3>
             <Desc>
@@ -168,7 +169,7 @@ function Section4() {
           </Item>
           <Item variants={itemVars}>
             <Circle>
-              <FaWifi color="white" size={60} />
+              <FaWifi color='white' size={60} />
             </Circle>
             <H3>Network</H3>
             <Desc>
@@ -183,8 +184,8 @@ function Section4() {
         <H2>Casper 졸업 그 이후...</H2>
         <Row
           variants={rowVars}
-          initial="initial"
-          whileInView="animate"
+          initial='initial'
+          whileInView='animate'
           viewport={{ once: true }}
         >
           {info.objs.images?.map((path, idx) => (
@@ -195,19 +196,17 @@ function Section4() {
       <Div>
         <H1>JOIN US</H1>
         <Button
-          href="https://forms.gle/siW8demcHTMSbtL69"
+          href={APPLICATION_FORM_URL}
           whileHover={{
-            backgroundColor: "#0066cc",
-            color: "rgb(255,255,255)",
+            backgroundColor: '#0066cc',
+            color: 'rgb(255,255,255)',
           }}
         >
           지원하기
         </Button>
         <JoinDesc>
-          <div>기간: 2024. 03. 13 까지</div>
-          <div>
-            대상: 창원대학교 컴퓨터공학과 1~3학년 / 정보통신공학과 1, 2학년
-          </div>
+          <div>기간: {DEADLINE}</div>
+          <div>대상: {REQUIREMENTS}</div>
         </JoinDesc>
       </Div>
     </Wrapper>

@@ -1,5 +1,6 @@
-import { motion, MotionValue, useSpring } from "framer-motion";
-import styled from "styled-components";
+import { motion, MotionValue, useSpring } from 'framer-motion';
+import styled from 'styled-components';
+import { APPLICATION_FORM_URL, HOMEPAGE_URL } from '../constants';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -70,19 +71,13 @@ function Header({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
     <Wrapper>
       <Nav>
         <Items>
-          <Logo src="casper_logo_white.png" alt="logo" width={130}></Logo>
-          <A
-            whileHover={{ backgroundColor: "#0066cc" }}
-            href="#"
-            onClick={() => {
-              alert("페이지 리뉴얼 중 입니다!");
-            }}
-          >
+          <Logo src='casper_logo_white.png' alt='logo' width={130}></Logo>
+          <A whileHover={{ backgroundColor: '#0066cc' }} href={HOMEPAGE_URL}>
             Homepage
           </A>
           <A
-            whileHover={{ backgroundColor: "#0066cc" }}
-            href="https://forms.gle/5jWgRrptN2YB2eX99"
+            whileHover={{ backgroundColor: '#0066cc' }}
+            href={APPLICATION_FORM_URL}
           >
             지원하기
           </A>
