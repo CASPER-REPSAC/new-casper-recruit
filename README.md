@@ -18,9 +18,13 @@ npm run dev
 ```
 
 
-3. 코드 수정
+3. 브랜치 이동 후 코드 수정
 
-아래 파일에서 수정할 부분 수정해서 main으로 PR 보내주세요!
+```
+git checkout -b feat/update-2025-example
+```
+
+아래 파일에서 수정할 부분 수정
 /src/constants.ts
 
 ```ts
@@ -35,3 +39,9 @@ export const REQUIREMENTS =
 export const HOMEPAGE_URL = 'https://www.casper.or.kr';
 ```
 
+
+```bash
+git push
+```
+
+이후 main으로 PR 보내주세요!
