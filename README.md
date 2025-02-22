@@ -7,7 +7,7 @@ https://recruit.casper.or.kr
 1. 프로젝트를 clone
 
 ```bash
-git clone
+git clone https://github.com/CASPER-REPSAC/new-casper-recruit.git
 ```
 
 2. 프로젝트 실행 (optional)
@@ -20,9 +20,10 @@ npm run dev
 
 3. 코드 수정
 
+아래 파일에서 수정할 부분 수정해서 main으로 PR 보내주세요!
 /src/constants.ts
 
-```
+```ts
 export const APPLICATION_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSfmfvklKP3JEoBBUAWFKYO2Zvte37t9pbzOhpPQOXVzoHZY_w/viewform';
 
@@ -34,4 +35,3 @@ export const REQUIREMENTS =
 export const HOMEPAGE_URL = 'https://www.casper.or.kr';
 ```
 
-수정할 부분 수정해서 main으로 PR 보내주세요!
