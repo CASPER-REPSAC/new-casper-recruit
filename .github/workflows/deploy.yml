@@ -28,6 +28,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Deploy to GitHub Pages
-        run: |
-          npm run deploy
+      - name: Set CNAME
+        run: npm run set-cname
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy Docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_PAGES_TOKEN }}
+          publish_dir: ./build
