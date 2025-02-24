@@ -5,7 +5,7 @@ import { ISectionProps } from './interfaces';
 import styled from 'styled-components';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CasperWhite } from '../Casper';
-import { DEADLINE } from '../../constants';
+import { DEADLINE, REQUIREMENTS } from '../../constants';
 
 const Sticky = styled(motion.div)`
   position: sticky;
@@ -221,7 +221,7 @@ function Section1({ scrollY }: ISectionProps) {
             <CasperWhite />
             <div>기간: {DEADLINE}</div>
             <div>
-              대상: 창원대학교 컴퓨터공학과 1~3학년 / 정보통신공학과 1, 2학년
+              대상: {REQUIREMENTS}
             </div>
           </Div>
           <Div>
